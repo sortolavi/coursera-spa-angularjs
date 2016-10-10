@@ -19,7 +19,7 @@
 			// split text input to array
 			var items = $scope.lunchDishes.split(',');
 
-			// trim away empty ones
+			// erase all empty ones
 			items = items.filter(function (n) {
 				return n.trim() != "";
 			});
