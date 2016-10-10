@@ -7,7 +7,6 @@
 	LunchCheckController.$inject = ['$scope'];
 
 
-
 	function LunchCheckController($scope) {
 
 		$scope.lunchDishes = "";
@@ -21,12 +20,12 @@
 
 			// erase all empty ones
 			items = items.filter(function (n) {
-				return n.trim() != "";
+				return n.trim() !== "";
 			});
 			
 			$scope.lunchStyle = {color:'green', padding:'6px', border:'2px solid green'};
 
-			if(items.length == 0) {
+			if(items.length === 0) {
 				$scope.lunchStyle = {color:'red', padding:'6px', border:'4px dashed red'};
 				$scope.message = "Please enter data first";
 			} 
@@ -41,4 +40,4 @@
 
 
 
-})()
+})();
