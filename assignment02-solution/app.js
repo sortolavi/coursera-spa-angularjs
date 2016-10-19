@@ -1,41 +1,92 @@
 (function() {
 	'use strict';
 
-	angular.module('LunchCheck', [])
-		.controller('LunchCheckController', LunchCheckController);
-
-	LunchCheckController.$inject = ['$scope'];
-
-
-	function LunchCheckController($scope) {
-
-		$scope.lunchDishes = "";
-		$scope.bonustext = "Note: an empty item between commas is not counted as a dish.";
+	angular.module('ShoppingListCheckOff', [])
+		.controller('ToBuyController', ToBuyController)
+		.controller('AlreadyBoughtController', AlreadyBoughtController)
+		.provider('ShoppingList', ShoppingListProvider)
+		.config(Config);
 
 
-		$scope.checkDishes = function() {
-			
-			// split text input to array
-			var items = $scope.lunchDishes.split(',');
+	Config.$inject = ['ShoppingListProvider'];
+	function Config(ShoppingListProvider) {
 
-			// erase all empty ones
-			items = items.filter(function (n) {
-				return n.trim() !== "";
-			});
-			
-			$scope.lunchStyle = {color:'green', padding:'6px', border:'2px solid green'};
+		ShoppingListProvider.defaults = [
+			{name:"chocolate bar", quantity:"2"},
+			{name:"beer", quantity:"1 sixpack"},
+			{name:"apples", quantity:"1 kg"},
+			{name:"ice cream", quantity:"2 packages"},
+			{name:"red wine", quantity:"2 bottles"}
+		];
+	}
 
-			if(items.length === 0) {
-				$scope.lunchStyle = {color:'red', padding:'6px', border:'4px dashed red'};
-				$scope.message = "Please enter data first";
-			} 
-			else if(items.length > 0 && items.length <= 3) $scope.message = "Enjoy!";
-			
-			else if(items.length > 3) $scope.message = "Too much!";
-			
+
+	ToBuyController.$inject = ['ShoppingList'];
+	function ToBuyController(ShoppingList) {
+
+		var list1 = this;
+		list1.items = ShoppingList.getItems();
+		
+		list1.buyItem = function (itemIndex) {
+		    ShoppingList.buyItem(itemIndex);
+		};
+	}
+
+
+
+	AlreadyBoughtController.$inject = ['ShoppingList'];
+	function AlreadyBoughtController (ShoppingList) {
+
+		var list2 = this;
+		list2.items = ShoppingList.getBoughtItems();
+	}
+
+
+
+
+	function ShoppingListCheckOffService (list) {
+		
+		var service = this;
+		var items = list;
+		var boughtItems = [];
+
+		service.buyItem = function (itemIndex) {
+
+			var item = items.splice(itemIndex, 1);
+			boughtItems.push(item[0]);
+
+			if (items.length === 0) {
+				throw new Error("Max items (" + maxItems + ") reached.");
+			}
+			else {
+				
+			}
+
 		};
 
+		service.getItems = function () {
+			return items;
+		};
 
+		service.getBoughtItems = function () {
+			return boughtItems;
+		};
+
+	}
+
+
+
+
+
+	function ShoppingListProvider() {
+		var provider = this;
+
+		// provider.defaults = [];
+
+		provider.$get = function () {
+			var shoppingList = new ShoppingListCheckOffService(provider.defaults);
+			return shoppingList;
+		};
 	}
 
 
