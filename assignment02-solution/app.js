@@ -12,10 +12,10 @@
 	function Config(ShoppingListProvider) {
 
 		ShoppingListProvider.defaults = [
-			{name:"chocolate bar", quantity:"2"},
-			{name:"beer", quantity:"1 sixpack"},
-			{name:"apples", quantity:"1 kg"},
-			{name:"ice cream", quantity:"2 packages"},
+			{name:"white bread", quantity:"1"},
+			{name:"camembert cheese", quantity:"350 g"},
+			{name:"tomatoes", quantity:"some"},
+			{name:"ice cream", quantity:"1 package"},
 			{name:"red wine", quantity:"2 bottles"}
 		];
 	}
@@ -51,17 +51,8 @@
 		var boughtItems = [];
 
 		service.buyItem = function (itemIndex) {
-
 			var item = items.splice(itemIndex, 1);
-			boughtItems.push(item[0]);
-
-			if (items.length === 0) {
-				throw new Error("Max items (" + maxItems + ") reached.");
-			}
-			else {
-				
-			}
-
+			boughtItems.push(item.pop());
 		};
 
 		service.getItems = function () {
@@ -81,7 +72,7 @@
 	function ShoppingListProvider() {
 		var provider = this;
 
-		// provider.defaults = [];
+		provider.defaults = [];
 
 		provider.$get = function () {
 			var shoppingList = new ShoppingListCheckOffService(provider.defaults);
