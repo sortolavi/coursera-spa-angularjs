@@ -23,12 +23,12 @@ function NarrowItDownController(MenuSearchService) {
   menu.getMatchedMenuItems = function (searchTerm) {
     var promise = MenuSearchService.getMatchedMenuItems(searchTerm);
 
-    promise.then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // promise.then(function (response) {
+    //   console.log(response.data);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
   };
 
 }
@@ -49,15 +49,28 @@ function MenuSearchService($http, ApiBasePath) {
 
 
   service.getMatchedMenuItems = function (searchTerm) {
-    var response = $http({
+    return $http({
       method: "GET",
-      url: (ApiBasePath + "/menu_items.json"),
-      params: {
-        category: searchTerm
-      }
+      url: (ApiBasePath + "/menu_items.json")
+    }).then(function (result) {
+      var foundItems = [];
+      // result.data is an object 
+      // result.data.menu_items is an array of objects
+/*    
+{
+  description: "chicken broth with egg drop"
+  id: 878
+  large_portion_name: "quart"
+  name: "Egg Drop Soup"
+  price_large: 4.5
+  price_small: 2.25
+  short_name: "A2"
+  small_portion_name: "pint"
+}
+*/
+      console.log(result);
+      return foundItems;
     });
-
-    return response;
   };
 
 }
