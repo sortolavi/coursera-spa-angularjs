@@ -4,49 +4,88 @@
     angular.module('NarrowItDownApp', [])
         .controller('NarrowItDownController', NarrowItDownController)
         .service('MenuSearchService', MenuSearchService)
-        .constant('ApiBasePath', "http://davids-restaurant.herokuapp.com");
+        .constant('ApiBasePath', "http://davids-restaurant.herokuapp.com")
+        .directive('foundItems', FoundItemsDirective);
+
+
+    function FoundItemsDirective() {
+        var ddo = {
+            templateUrl: 'founditems.html',
+            scope: {
+                found: '<',
+                // myTitle: '@title',
+                onRemove: '&'
+            },
+            controller: FoundItemsDirectiveController,
+            controllerAs: 'menu',
+            bindToController: true
+        };
+
+        return ddo;
+    }
+
+
+    function FoundItemsDirectiveController() {
+        var menu = this;
+
+        // list.itemsInList = function() {
+        //     for (var i = 0; i < list.items.length; i++) {
+        //         var name = list.items[i].name;
+        //         if (name.toLowerCase().indexOf("cookie") !== -1) {
+        //             return true;
+        //         }
+        //     }
+
+        //     return false;
+        // };
+    }
+
 
 
     NarrowItDownController.$inject = ['MenuSearchService'];
-
     function NarrowItDownController(MenuSearchService) {
         var menu = this;
-
-        // var promise = MenuSearchService.getMenuCategories();
-
-        // promise.then(function (response) {
-        //   menu.categories = response.data;
-        // })
-        // .catch(function (error) {
-        //   console.log("Something went terribly wrong.");
-        // });
+        menu.found = [];
+        // menu.found = [
+        //     {name:"aku ankka"},
+        //     {name:"roope ankka"}
+        // ];
 
         menu.getMatchedMenuItems = function(searchTerm) {
             var promise = MenuSearchService.getMatchedMenuItems(searchTerm);
-
+            // console.log(promise);
             promise.then(function (response) {
               console.log(response);
+              menu.found = response;
             })
             .catch(function (error) {
               console.log(error);
             });
         };
 
+        menu.removeItem = function(itemIndex) {
+            // console.log("'this' is: ", this);
+            // MenuSearchService.removeItem(itemIndex);
+            menu.found.splice(itemIndex, 1);
+        };
+
+
     }
 
 
     MenuSearchService.$inject = ['$http', 'ApiBasePath'];
-
     function MenuSearchService($http, ApiBasePath) {
         var service = this;
+        var items = [];
+        var foundItems = [];
 
         service.getMatchedMenuItems = function(searchTerm) {
             return $http({
                 method: "GET",
                 url: (ApiBasePath + "/menu_items.json")
             }).then(function(result) {
-                var foundItems = [];
-                var items = result.data.menu_items;
+                
+                items = result.data.menu_items;
                 
                 // for(var i = 0; i < items.length; i++) {
                 //     if(items[i].description.indexOf(searchTerm) > -1) {
@@ -74,6 +113,11 @@
                 return foundItems;
             });
         };
+
+        // service.removeItem = function(itemIndex) {
+        //     foundItems.splice(itemIndex, 1);
+        // };
+
 
     }
 

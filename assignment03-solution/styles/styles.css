@@ -9,6 +9,13 @@ input[type="text"] {
   float: left;
   margin-left: 10px;
 }
+found-items{
+  float: left;
+  display: block;
+  width: 100%;
+ 
+  border: 1px solid black;
+}
 .loader {
   display: none;
   margin-left: 5px;
