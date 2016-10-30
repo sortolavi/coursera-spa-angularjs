@@ -13,8 +13,6 @@ found-items{
   float: left;
   display: block;
   width: 100%;
- 
-  border: 1px solid black;
 }
 .loader {
   display: none;

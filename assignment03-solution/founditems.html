@@ -1,6 +1,17 @@
-<ol>
-  <li ng-repeat="item in menu.found">
-    {{ item.name }}
-    <button ng-click="menu.onRemove({index: $index});">Don't want this one!</button>
-  </li>
-</ol>
+
+<h4>{{ menu.notice }}</h4>
+
+<table ng-show="menu.found.length" class="table table-condensed table-striped">
+<thead>
+	<tr><th>#</th><th>Name</th><th>Short Name</th><th colspan="2">Description</th></tr>
+</thead>
+<tbody>
+	<tr ng-repeat="item in menu.found">
+		<th scope="row">{{$index}}</th>
+		<td>{{ item.name }}</td>
+		<td>{{ item.short_name }}</td>
+		<td>{{ item.description }}</td>
+		<td><button ng-click="menu.onRemove({index: $index});">Don't want this one!</button></td>
+	</tr>
+</tbody>
+</table>
