@@ -1,6 +1,19 @@
-<ul>
+<!-- <ul>
   <li ng-repeat="item in $ctrl.items"
       ui-sref="itemList({itemId: item.short_name})">
-    ({{ item.short_name }}) {{ item.name }}
+    	{{ item.name }}
   </li>
-</ul>
+</ul> -->
+<div class="col-md-6">
+<table class="table table-condensed table-striped">
+<thead>
+	<tr><th>Short Name</th><th>Name</th></tr>
+</thead>
+<tbody>
+	<tr ng-repeat="item in $ctrl.items" ui-sref="itemList({itemId: item.short_name})">
+		<td>{{ item.short_name }}</td>
+		<td>{{ item.name }}</td>
+	</tr>
+</tbody>
+</table>
+</div>

@@ -8,18 +8,11 @@
     ItemsController.$inject = ['menuitems'];
 
     function ItemsController(menuitems) {
-        // var itemList = this;
-        // itemDetail.id = item.id;
-        // itemDetail.name = item.name;
-        // itemDetail.short_name = item.short_name;
-        // itemDetail.url = item.url;
-
-       
         var itemList = this;
-        itemList.category = menuitems.category;
-        itemList.menuitems = menuitems.menu_items;
+        itemList.category = menuitems.data.category;
+        itemList.menuitems = menuitems.data.menu_items;
 
-        // console.log("ItemsController: " + itemList.menuitems);
+        // console.log(itemList.menuitems);
 
     }
 

@@ -1,5 +1,5 @@
 body {
-  font-size: 1.2em;
+  font-size: 16px;
 }
 
 .error {
@@ -20,4 +20,9 @@ li[ui-sref]:hover {
   border: solid black 1px;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+tr[ui-sref]:hover{
+  cursor: pointer;
+  border-left: solid red 10px;
 }
