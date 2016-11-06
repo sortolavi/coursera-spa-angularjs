@@ -39,13 +39,6 @@
             templateUrl: 'src/menuapp/templates/items.template.html',
             controller: 'ItemsController as itemList',
             resolve: {
-                // menuitems: ['$stateParams', 'MenuDataService',
-                //     function($stateParams, MenuDataService) {
-                //         return MenuDataService.getItemsForCategory($stateParams.itemId).then(function (items) {
-                //             return items.data;
-                //         });
-                //     }
-                // ]
                 menuitems: ['$stateParams', 'MenuDataService',
                     function($stateParams, MenuDataService) {
                         return MenuDataService.getItemsForCategory($stateParams.itemId);
