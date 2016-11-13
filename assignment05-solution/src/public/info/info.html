@@ -1,0 +1,11 @@
+<div id="main-content" class="container">
+  <h3>info</h3>
+
+  {{ infoCtrl.user }}
+
+  <menu-item
+             menu-item="infoCtrl.user.favorite">
+  </menu-item>
+
+  <div ng-if="!infoCtrl.user">Not Signed Up Yet. <a ui-sref="public.signup" title="">Sign Up Now!</a></div>
+</div>

@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="css/signup.css">
+
+<div id="main-content" class="container">
+
+<fieldset>
+      <legend>Sign Up For A Newsletter</legend>
+      <form name='regForm' novalidate>
+
+        <input type="text" name="firstname" placeholder="Firstname" ng-model="signupCtrl.user.firstname" required minlength="1" ng-maxlength="20">
+          <span
+            ng-if="(regForm.firstname.$error.minlength || regForm.firstname.$error.required) && regForm.firstname.$touched">
+            First name must be at least 1 characters long
+          </span>
+          <span ng-if="regForm.firstname.$error.maxlength && regForm.firstname.$touched">
+            First name must not be longer than 20 characters
+          </span>
+          <br>
+
+        <input type="text" name="lastname" placeholder="Last name" ng-model="signupCtrl.user.lastname" required minlength="1" ng-maxlength="40">
+          <span
+            ng-if="(regForm.lastname.$error.minlength || regForm.lastname.$error.required) && regForm.lastname.$touched">
+            Last name must be at least 1 characters long
+          </span>
+          <span ng-if="regForm.lastname.$error.maxlength && regForm.lastname.$touched">
+            Last name must not be longer than 40 characters
+          </span>
+          <br>
+
+        <input type="email" name="email" placeholder="Email"
+          ng-model="signupCtrl.user.email"
+          required>
+          <span ng-if="regForm.email.$invalid && regForm.email.$touched">
+            Must be a valid email address: handle@domain format
+          </span>
+          <br>
+
+        <input type="text" name="phone" placeholder="Phone ###-###-####"
+          ng-model="signupCtrl.user.phone"
+          pattern="(\d{3})-(\d{3})-(\d{4})">
+          <span ng-if="regForm.phone.$invalid && regForm.phone.$touched">
+            Phone must be in the format ###-###-####.
+          </span>
+          <br>
+		
+		<input type="text" name="favorite" placeholder="Favorite Menu Number" ng-model="signupCtrl.user.favorite">
+		<!-- <span ng-if="signupCtrl.menuerror">
+            No such menu number exists.
+          </span> -->
+          <span>{{ signupCtrl.menuerror }} </span>
+
+		<br>
+        <button
+          ng-disabled="regForm.$invalid"
+          ng-click="signupCtrl.submit()">Submit</button>
+
+          <div style="margin-top: 10px;">
+            Form valid? {{ regForm.$valid }}
+          </div>
+      </form>
+    </fieldset>
+
+	<div>{{ signupCtrl.saved }}</div>
+
+</div>
