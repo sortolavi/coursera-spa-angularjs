@@ -1,11 +1,32 @@
+<link rel="stylesheet" href="css/info.css">
 <div id="main-content" class="container">
-  <h3>info</h3>
+  <h3>Info</h3>
+	<div ng-if="infoCtrl.user">
+<!-- 
+		<p>First Name: {{ infoCtrl.user.firstname }}</p>
+		<p>Last Name: {{ infoCtrl.user.lastname }}</p>
+		<p>Email: {{ infoCtrl.user.email }}</p>
+		<p>Phone: {{ infoCtrl.user.phone }}</p>
+		
+  		<menu-item menu-item="infoCtrl.user.favorite"></menu-item>
+ -->
 
-  {{ infoCtrl.user }}
+		<table class="table table-condensed table-striped">
+		<tbody>
+			
+				<tr><td>First Name</td><td>{{ infoCtrl.user.firstname }}</td></tr>
+				<tr><td>Last Name</td><td>{{ infoCtrl.user.lastname }}</td></tr>
+				<tr><td>Email</td><td>{{ infoCtrl.user.email }}</td></tr>
+				<tr><td>Phone</td><td>{{ infoCtrl.user.phone }}</td></tr>
+				<tr><td>Favorite dish</td><td><menu-item menu-item="infoCtrl.user.favorite"></menu-item></td></tr>
+			
+		</tbody>
+		</table>
 
-  <menu-item
-             menu-item="infoCtrl.user.favorite">
-  </menu-item>
+
+
+	</div>
 
   <div ng-if="!infoCtrl.user">Not Signed Up Yet. <a ui-sref="public.signup" title="">Sign Up Now!</a></div>
+
 </div>

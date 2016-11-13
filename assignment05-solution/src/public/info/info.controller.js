@@ -10,11 +10,7 @@
         var info = this;
 
         info.user = MenuService.user;
-        // if (info.user == undefined) {
-        //     console.log("undefined user");
-        // } else {
-        //     console.log(info.user);
-        // }
+        
     }
 
 
